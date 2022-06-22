@@ -3,12 +3,12 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
-const index = require("./routes/index");
+const routes = require("./routes.js");
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
-app.use("/", index);
+app.use("/", routes);
 
 app.use(express.static("public"));
 app.use(express.static("views"));
