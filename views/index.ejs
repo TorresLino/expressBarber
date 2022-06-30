@@ -1,5 +1,60 @@
 <%- include('../public/components/header.ejs') %>
 
-<h1>Index</h1>
+<style>
+    td, th{
+        padding: 10px;
+    }
+    .right-column{
+        text-align: right;
+    }
+</style>
+
+<img src="/images/barberBackground.jpg" alt="Background" style="position:absolute; top: 0px; height: 400px; width: 100%; object-fit: cover; z-index: -1;">
+<div class="centered-container" style="margin-top: 350px;">
+    <h1 style="margin-bottom: 20px; font-size: 48px;" class="cursive-text">Welcome</h1>
+    <h2 style="margin-bottom: 10px;">You can book a haircut online</h2>
+
+    <h2>or call us at (825) 555-1234</h2>
+    
+    <a href="/book" class="big-button">
+        <button>Book Now</button>
+    </a>
+
+    <h1 class="cursive-text" style="font-size: 48px;">Services:</h1>
+    <table style="font-size: 20px;">
+        <tr>
+            <th>
+                Service:
+            </th>
+            <th class="right-column">
+                Cost:
+            </th>
+        </tr>
+        <tr>
+            <td>
+                Normal cut
+            </td>
+            <td class="right-column">
+                $35
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Machine cut
+            </td>
+            <td class="right-column">
+                $20
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Beard
+            </td>
+            <td class="right-column">
+                $25
+            </td>
+        </tr>
+    </table>
+</div>
 
 <%- include('../public/components/footer.ejs') %> 
