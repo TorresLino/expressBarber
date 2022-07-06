@@ -33,6 +33,8 @@ main{
     color: var(--cyan);
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 footer{
     position:fixed;

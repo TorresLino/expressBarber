@@ -1,0 +1,64 @@
+<%- include('../public/components/header.ejs') %>
+
+<style>
+    .calendar-row{
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+    }
+    .calendar-date{
+        margin: 10px;
+        width: 25%;
+        height: 0;
+        padding-top: 12.5%;
+        padding-bottom: 12.5%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: var(--black);
+        border-radius: 10px;
+        border: 2px var(--orange);
+        border-style: solid;
+        align-items: center;
+        background-color: var(--light-blue);
+    }
+    .selection-tab{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        color: var(--cyan);
+    }
+    .tab-header{
+        box-sizing: border-box;
+        width: 100%;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+</style>
+
+<div class="centered-container">
+
+    <div class="selection-tab">
+        <div class="tab-header">
+            <h1>
+                Select a date:
+            </h1>
+        </div>
+        <div>
+            <% for(let d=0; d<15; d+=3){ %> 
+                <div class="calendar-row">
+                    <% for(let i=0; i<3; i++){ %> 
+                            <a class="calendar-date" href="/book/<%- service %>/<%- '7-'+(d+i) %>">
+                                <h1><%- "7/"+(d+i) %></h1>
+                                <h3>Friday</h3>
+                            </a>
+                    <% } %> 
+                </div>
+            <% } %>
+            </div>
+        </div>
+    </div>
+
+<%- include('../public/components/footer.ejs') %> 

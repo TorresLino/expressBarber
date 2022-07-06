@@ -1,0 +1,36 @@
+<%- include('../public/components/header.ejs') %>
+
+<style>
+    .service{
+        width: 100%;
+        text-align: left;        
+        border-bottom: var(--orange) 2px;
+        border-style: none none solid none;
+        color: var(--black);
+        margin-bottom: 10px;
+    }
+</style>
+
+<h1 class="cursive-text" style="font-size: 48px;">
+    Select a service:
+</h1>
+
+<div class="centered-container" style="margin-top: 64px;">
+    <% for(let s of services){ %> 
+        <a class="service" href="<%- path + s.path %>">
+            <div style="padding: 20px; background-color: var(--light-blue);">
+                <h1>
+                    <%- s.name %> 
+                </h1>
+                <h3>
+                    <%- s.info %> 
+                </h3>
+                <h4>
+                    <%- s.price %> 
+                </h4>
+            </div>
+        </a>
+    <% } %>
+</div>
+
+<%- include('../public/components/footer.ejs') %> 
