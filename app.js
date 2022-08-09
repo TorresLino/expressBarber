@@ -1,11 +1,17 @@
-const express = require("express");
-const bodyParser = require("body-parser");
+import sequelize from "./config/db.js";
+import Barber from "./models/barber.js";
+import User from "./models/user.js";
+import Booking from "./models/booking.js";
+import Service from "./models/service.js";
+await sequelize.sync({ alter: true });
+
+import express from "express";
+import bodyParser from "body-parser";
+import routes from "./routes.js";
 
 const app = express();
 
-const routes = require("./routes.js");
-
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.set("view engine", "ejs");
 
 app.use(function(req, res, next){
@@ -18,4 +24,4 @@ app.use("/", routes);
 app.use(express.static("public"));
 app.use(express.static("views"));
 
-module.exports = app;
+export default app;

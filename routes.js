@@ -1,12 +1,14 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
-const admin = require("./routes/admin");
-const index = require("./routes/index");
-const book = require("./routes/book");
+import admin from "./routes/admin.js";
+import index from "./routes/index.js";
+import book from "./routes/book.js";
+import api from "./routes/api.js";
 
 router.use("/", index);
 router.use("/admin", admin);
 router.use("/book", book);
+router.use("/api", api)
 
-module.exports = router;
+export default router;

@@ -99,3 +99,51 @@ footer a p{
     font-size: 28px;
     cursor: pointer;
 }
+.calendar-row{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.calendar-date{
+    margin: 10px;
+    width: 25%;
+    height: 0;
+    padding-top: 12.5%;
+    padding-bottom: 12.5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: var(--black);
+    border-radius: 10px;
+    border: 2px var(--orange);
+    border-style: solid;
+    align-items: center;
+    background-color: var(--light-blue);
+}
+.selection-tab{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: var(--cyan);
+}
+.tab-header{
+    box-sizing: border-box;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.unavailable{
+    background-color: gray;
+    border: 2px var(--black);
+    border-style: solid;
+}
+.service{
+    width: 100%;
+    text-align: left;        
+    border-bottom: var(--orange) 2px;
+    border-style: none none solid none;
+    color: var(--black);
+    margin-bottom: 10px;
+}

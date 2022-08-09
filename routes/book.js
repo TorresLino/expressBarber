@@ -1,4 +1,4 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
 const services = [ //development and debug
@@ -31,8 +31,34 @@ router.get('/:service/:date', function(req, res, next){
     else{
         req.ejs['pageName'] = "Book";
         req.ejs['service'] = req.params['service'];
+        req.ejs['date'] = req.params['date'];
         res.render('book-time', req.ejs);
     }
 });
 
-module.exports = router;
+router.get('/:service/:date/:time', function(req, res, next){
+    if(!services.map((s)=>{return s['path'].substring(1)}).includes(req.params['service']))
+        next();
+    else{
+        req.ejs['pageName'] = "Book";
+        req.ejs['service'] = req.params['service'];
+        req.ejs['date'] = req.params['date'];
+        req.ejs['barbers'] = ['John Smith', 'Arthur Lino', 'Eren Yager'];
+        res.render('book-barber', req.ejs);
+    }
+});
+
+router.get('/:service/:date/:time/:barber', function(req, res, next){
+    if(!services.map((s)=>{return s['path'].substring(1)}).includes(req.params['service']))
+        next();
+    else{
+        req.ejs['pageName'] = "Book";
+        req.ejs['service'] = req.params['service'];
+        req.ejs['date'] = req.params['date'];
+        req.ejs['barber'] = req.params['barber'];
+        res.render('book-barber', req.ejs);
+    }
+});
+
+
+export default router;

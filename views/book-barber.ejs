@@ -5,17 +5,17 @@
 </h1>
 
 <div class="centered-container" style="margin-top: 64px;">
-    <% for(let s of services){ %> 
-        <a class="service" href="<%- path + s.path %>">
+    <% for(let b of barbers){ %> 
+        <a class="service" href="<%- path +'/'+ b %>">
             <div style="padding: 20px; background-color: var(--light-blue);">
                 <h1>
-                    <%- s.name %> 
+                    <%- b %> 
                 </h1>
                 <h3>
-                    <%- s.info %> 
+                    <%- "Barber info" %> 
                 </h3>
                 <h4>
-                    <%- s.price %> 
+                    <%- "Other" %> 
                 </h4>
             </div>
         </a>
