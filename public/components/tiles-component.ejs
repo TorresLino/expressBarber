@@ -1,0 +1,16 @@
+<h1 class="cursive-text" style="font-size: 48px;">
+    Select a <%- subject %>:
+</h1>
+
+<div>
+    <% for(let d=0; d<15; d+=3){ %> 
+        <div class="calendar-row">
+            <% for(let i=0; i<3; i++){ %> 
+                    <div class="calendar-date" onclick="selectItem('<%- data[d+i].code %>')">
+                        <h1><%- data[d+i].name %></h1>
+                        <h3><%- data[d+i].description %> </h3>
+                    </div>
+            <% } %> 
+        </div>
+    <% } %>
+</div>

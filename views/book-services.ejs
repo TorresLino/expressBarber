@@ -1,5 +1,12 @@
 <%- include('../public/components/header.ejs') %>
 
+<div id="kansa"></div>
+
+<script>
+    const ejs = require('ejs');
+    document.getElementById('kansa').innerHTML = ejs.render('<%- include("../public/components/header.ejs") %>');
+</script>
+
 <h1 class="cursive-text" style="font-size: 48px;">
     Select a service:
 </h1>

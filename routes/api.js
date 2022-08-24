@@ -5,10 +5,6 @@ import * as serviceController from "../controllers/service.js";
 import * as bookingController from "../controllers/booking.js";
 const router = express.Router();
 
-router.get('/', function(req, res, next){
-    return res.send("Bom dia");
-});
-
 router.get('/barber', barberController.getBarbers);
 router.post('/barber', barberController.postBarber);
 router.delete('/barber/:id', barberController.deleteBarber);

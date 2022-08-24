@@ -1,0 +1,21 @@
+<h1 class="cursive-text" style="font-size: 48px;">
+    Select a <%- subject %>:
+</h1>
+
+<div class="centered-container" style="margin-top: 64px;">
+    <% for(let s of data){ %> 
+        <div class="service" onclick="selectItem('<%- s.code %>')">
+            <div style="padding: 20px; background-color: var(--light-blue);">
+                <h1>
+                    <%- s.name %> 
+                </h1>
+                <h3>
+                    <%- s.description %> 
+                </h3>
+                <h4>
+                    $ <%- s.price %> 
+                </h4>
+            </div>
+        </div>
+    <% } %>
+</div>

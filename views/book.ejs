@@ -1,0 +1,38 @@
+<%- include('../public/components/header.ejs') %>
+
+<script src="/javascript/csi.js"></script>
+
+<form id="bookForm" action="POST" style="width: 100%;" class="centered-container">
+    <div id="data">
+        <input type="hidden" id="state" value="">
+        <input type="hidden" id="service" value="">
+        <input type="hidden" id="date" value="">
+        <input type="hidden" id="time" value="">
+        <input type="hidden" id="barber" value="">
+    </div>
+    <div id="content" data-include="book/services" style="width: 100%;"></div>
+</form>
+
+<script>
+    const statePaths = {"service":"book/services", "date":"book/date", "time":"book/time", "barber":"book/barber", "confirm":"book/confirm"};
+    const states = Object.keys(statePaths);
+    var state = document.getElementById('state');
+    var content = document.getElementById('content');
+
+    function selectItem(element){
+        if(state.value === states[states.length - 1]){
+            document.getElementById('bookForm').submit();
+            return true;
+        }
+        document.getElementById(state.value).value = element;
+        state.value = states[states.indexOf(state.value) + 1];
+        content.setAttribute('data-include', statePaths[state.value]);
+        csi(); 
+    }
+
+    document.getElementById('state').value = states[0];
+    csi();
+</script>
+
+<%- include('../public/components/footer.ejs') %> 
+

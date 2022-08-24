@@ -10,12 +10,14 @@ export const postService = async (req, res, next) => {
     const description = req.body.description;
     const price = parseFloat(req.body.price);
     const timeSlots = parseInt(req.body.timeSlots);
-    if ( name != null && description != null && price != null && timeSlots != null ){
+    const code = req.body.code;
+    if ( name != null && description != null && price != null && timeSlots != null && code != null ){
         const createdService = await Service.create({
             name: name,
             description: description,
             price: price,
-            timeSlots: timeSlots
+            timeSlots: timeSlots,
+            code: code
         });
         res.status(200).json(JSON.stringify(createdService));
     }

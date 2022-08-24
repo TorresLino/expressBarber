@@ -26,7 +26,11 @@ const Service = sequelize.define(
         timeSlots:{
             type: DataTypes.INTEGER,
             allowNull: false
-        }  
+        },
+        code:{
+            type: DataTypes.STRING,
+            allowNull: false
+        } 
     }
 );
 
