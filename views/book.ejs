@@ -14,19 +14,32 @@
 </form>
 
 <script>
-    const statePaths = {"service":"book/services", "date":"book/date", "time":"book/time", "barber":"book/barber", "confirm":"book/confirm"};
+    const statePaths = {
+        "service":{path:"service", args: []},
+        "date":{path:"date", args:[]},
+        "time":{path:"time", args:['service', 'date']},
+        "barber":{path:"barber", args:['service', 'date', 'time']},
+        "confirm":{path:"confirm", args:['service', 'date', 'time', 'barber']}};
     const states = Object.keys(statePaths);
     var state = document.getElementById('state');
     var content = document.getElementById('content');
 
-    function selectItem(element){
+    function selectItem(data){
         if(state.value === states[states.length - 1]){
             document.getElementById('bookForm').submit();
             return true;
         }
-        document.getElementById(state.value).value = element;
+        document.getElementById(state.value).value = data;
         state.value = states[states.indexOf(state.value) + 1];
-        content.setAttribute('data-include', statePaths[state.value]);
+        var path = 'book/' + statePaths[state.value]['path'];
+        for(var arg in statePaths[state.value]['args'])
+        {
+            if(arg != null){
+                path = path.concat('/' + document.getElementById(statePaths[state.value]['args'][arg]).value);
+            }
+        }
+        console.log(path)
+        content.setAttribute('data-include', path);
         csi(); 
     }
 

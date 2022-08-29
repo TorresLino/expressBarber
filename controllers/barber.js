@@ -1,7 +1,7 @@
 import Barber from "../models/barber.js";
 
 export const getBarbers = async (req, res, next) => {
-    const barbers = await Barber.findAll();
+    const barbers = await Barber.findAll({order:['displayName']});
     res.status(200).json(barbers);
 };
 

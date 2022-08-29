@@ -119,6 +119,7 @@ footer a p{
     border-style: solid;
     align-items: center;
     background-color: var(--light-blue);
+    cursor: pointer;
 }
 .selection-tab{
     display: flex;
@@ -146,4 +147,5 @@ footer a p{
     border-style: none none solid none;
     color: var(--black);
     margin-bottom: 10px;
+    cursor: pointer;
 }

@@ -1,7 +1,4 @@
-import axios from 'axios';
-import ejs from 'ejs';
-var barbers
+import sequelize from "./config/db.js";
 
-console.log(
-    
-)
+await sequelize.sync({ alter: false });
+

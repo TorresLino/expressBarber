@@ -5,26 +5,36 @@ export const getAllBookings = async (req, res, next) => {
     res.status(200).json(bookings);
 };
 
+export const getBookingTimesForDate = async (req, res, next) => {
+    const bookings = await Booking.findAll({
+        attributes: ['timeSlotID', 'barberID'],
+        where: {date: req.params.date}})
+    res.status(200).json(bookings);
+};
+
 export const postBooking = async (req, res, next) => {
-    const userID = parseInt(req.body.userID);
-    const barberID = parseInt(req.body.barberID);
-    const serviceID = parseInt(req.body.serviceID);
-    const dateTime = new Date(req.body.dateTime);
-    console.log(userID);
-    console.log(barberID);
-    console.log(serviceID);
-    console.log(dateTime);
-    if ( userID != null && barberID != null && serviceID != null && dateTime.toString() != 'Invalid Date' ){
-        const createdBooking = await Booking.create({
-            barberID: barberID,
-            userID: userID,
-            serviceID: serviceID,
-            dateTime: dateTime
-        });
-        res.status(200).json(JSON.stringify(createdBooking));
+    try{
+        const userID = parseInt(req.body.userID);
+        const barberID = parseInt(req.body.barberID);
+        const serviceID = parseInt(req.body.serviceID);
+        const date = req.body.date;
+        const timeSlotID = parseInt(req.body.timeSlotID);
+        if ( userID != null && barberID != null && serviceID != null && date != null && timeSlotID != null ){
+            const createdBooking = await Booking.create({
+                barberID: barberID,
+                userID: userID,
+                serviceID: serviceID,
+                date: date,
+                timeSlotID: timeSlotID
+            });
+            res.status(200).json(JSON.stringify(createdBooking));
+        }
+        else
+            res.status(500).send("Invalid inputs");
     }
-    else
-        res.status(500).send("Invalid inputs");
+    catch{
+        res.status(500).send("Error inserting value");
+    }
 };
 
 export const deleteBooking = async (req, res, next) => {

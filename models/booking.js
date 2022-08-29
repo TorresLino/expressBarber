@@ -10,9 +10,9 @@ const Booking = sequelize.define(
             allowNull: false,
             primaryKey: true
         },
-        dateTime:{
-            type: DataTypes.DATE,
-            allowNull: false
+        date:{
+            type: DataTypes.DATEONLY,
+            allowNull: false            
         }
     }
 );

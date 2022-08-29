@@ -1,9 +1,16 @@
 import Service from "../models/service.js";
 
 export const getServices = async (req, res, next) => {
-    const services = await Service.findAll();
+    const services = await Service.findAll({order: ['timeSlots', 'name']});
     res.status(200).json(services);
 };
+
+export const getServiceSlots = async (req, res, next) => {
+    //console.log(req.params.code)
+    const services = await Service.findAll(
+        {where: {code: req.params.code}, attributes: ['timeSlots']});
+    res.status(200).json(services);
+}
 
 export const postService = async (req, res, next) => {
     const name = req.body.name;
