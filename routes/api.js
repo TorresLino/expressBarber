@@ -7,6 +7,7 @@ import * as timeSlotController from "../controllers/timeSlot.js";
 const router = express.Router();
 
 router.get('/barber', barberController.getBarbers);
+router.get('/barber/:id', barberController.getBarberById);
 router.post('/barber', barberController.postBarber);
 router.delete('/barber/:id', barberController.deleteBarber);
 
@@ -17,7 +18,7 @@ router.delete('/user/:id', userController.deleteUser);
 router.get('/service', serviceController.getServices);
 router.post('/service', serviceController.postService);
 router.delete('/service/:id', serviceController.deleteService);
-router.get('/service-slots/:code', serviceController.getServiceSlots);
+router.get('/service-by-code/:code', serviceController.getServiceByCode);
 
 router.get('/booking', bookingController.getAllBookings);
 router.post('/booking', bookingController.postBooking);
@@ -25,6 +26,7 @@ router.delete('/booking/:id', bookingController.deleteBooking);
 router.get('/booking-times/:date', bookingController.getBookingTimesForDate);
 
 router.get('/timeSlot', timeSlotController.getTimeSlots);
+router.get('/timeslot/:id', timeSlotController.getTimeSlotById);
 router.post('/timeSlot', timeSlotController.postTimeSlot);
 router.delete('/timeSlot/:id', timeSlotController.deleteTimeSlot);
 

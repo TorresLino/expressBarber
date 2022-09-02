@@ -54,7 +54,7 @@ router.get('/date', function(req, res, next){
 router.get('/time/:code/:date', function(req, res, next){
     axios.all([
         axios.get('http://localhost:8000/api/booking-times/' + req.params.date),
-        axios.get('http://localhost:8000/api/service-slots/' + req.params.code),
+        axios.get('http://localhost:8000/api/service-by-code/' + req.params.code),
         axios.get('http://localhost:8000/api/timeSlot'),
         axios.get('http://localhost:8000/api/barber')])
         .then(axios.spread((...responses) => {
@@ -82,7 +82,7 @@ router.get('/time/:code/:date', function(req, res, next){
 router.get('/barber/:code/:date/:slot', function(req, res, next){    
     axios.all([
         axios.get('http://localhost:8000/api/booking-times/' + req.params.date),
-        axios.get('http://localhost:8000/api/service-slots/' + req.params.code),
+        axios.get('http://localhost:8000/api/service-by-code/' + req.params.code),
         axios.get('http://localhost:8000/api/timeSlot'),
         axios.get('http://localhost:8000/api/barber')])
         .then(axios.spread((...responses) => {
@@ -107,6 +107,7 @@ router.get('/barber/:code/:date/:slot', function(req, res, next){
             if(displayBarbers.length > 1){
                 displayBarbers = [
                     {
+                        //maybe change to whoever has the least bookings?
                         code: displayBarbers[Math.floor(Math.random()*displayBarbers.length)].code,
                         name: 'No preference',
                         description: 'Select one of the barbers at random',
@@ -124,56 +125,29 @@ router.get('/barber/:code/:date/:slot', function(req, res, next){
 });
 
 //continue from here
-router.get('/confirm/:code/:date/:time/:barber', function(req, res, next){    
-    req.ejs['services'] = services;
+router.get('/confirm/:code/:date/:time/:barber', function(req, res, next){
+    axios.all([
+        axios.get('http://localhost:8000/api/service-by-code/' + req.params.code),
+        axios.get('http://localhost:8000/api/timeSlot'),
+        axios.get('http://localhost:8000/api/barber/' + req.params.barber)])
+        .then(axios.spread((...responses) => {
+            const selectedService = responses[0].data[0];
+            const selectedTime = responses[1].data.map(x => x.time)[0];
+            const selectedBarber = responses[2].data.map(x => x.displayName)[0];
+            const selecetedDate = req.params.date.split('-').slice(1, 3).join('/');
 
-    res.render('../public/components/list-component.ejs', req.ejs);
+            req.ejs['data'] = [
+                {'title': 'Service:', 'data': selectedService.name},
+                {'title': 'Date:', 'data': selecetedDate},
+                {'title': 'Time:', 'data': selectedTime},
+                {'title': 'Barber:', 'data': selectedBarber},
+                {'title': 'Price:', 'data': '$ ' + selectedService.price}
+            ]
+
+
+            res.render('../public/components/confirm-booking.ejs', req.ejs);
+        }));
 })
-
-/*router.get('/:service', function(req, res, next){
-    if(!services.map((s)=>{return s['path'].substring(1)}).includes(req.params['service']))
-        next();
-    else{
-        req.ejs['pageName'] = "Book";
-        req.ejs['service'] = req.params['service'];
-        res.render('book-date', req.ejs);
-    }
-});
-
-router.get('/:service/:date', function(req, res, next){
-    if(!services.map((s)=>{return s['path'].substring(1)}).includes(req.params['service']))
-        next();
-    else{
-        req.ejs['pageName'] = "Book";
-        req.ejs['service'] = req.params['service'];
-        req.ejs['date'] = req.params['date'];
-        res.render('book-time', req.ejs);
-    }
-});
-
-router.get('/:service/:date/:time', function(req, res, next){
-    if(!services.map((s)=>{return s['path'].substring(1)}).includes(req.params['service']))
-        next();
-    else{
-        req.ejs['pageName'] = "Book";
-        req.ejs['service'] = req.params['service'];
-        req.ejs['date'] = req.params['date'];
-        req.ejs['barbers'] = ['John Smith', 'Arthur Lino', 'Eren Yager'];
-        res.render('book-barber', req.ejs);
-    }
-});
-
-router.get('/:service/:date/:time/:barber', function(req, res, next){
-    if(!services.map((s)=>{return s['path'].substring(1)}).includes(req.params['service']))
-        next();
-    else{
-        req.ejs['pageName'] = "Book";
-        req.ejs['service'] = req.params['service'];
-        req.ejs['date'] = req.params['date'];
-        req.ejs['barber'] = req.params['barber'];
-        res.render('book-barber', req.ejs);
-    }
-});*/
 
 
 export default router;

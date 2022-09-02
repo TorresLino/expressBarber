@@ -5,6 +5,14 @@ export const getTimeSlots = async (req, res, next) => {
     res.status(200).json(timeSlot);
 };
 
+export const getTimeSlotById = async (req, res, next) => {
+    const timeSlot = await TimeSlot.findAll({
+        attributes: ['time'],
+        where: {id: req.params.id}
+    })
+    res.status(200).json(timeSlot);
+}
+
 export const postTimeSlot = async (req, res, next) => {
     if ( req.body.time != null ){
         const time = req.body.time;

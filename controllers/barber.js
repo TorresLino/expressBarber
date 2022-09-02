@@ -5,6 +5,14 @@ export const getBarbers = async (req, res, next) => {
     res.status(200).json(barbers);
 };
 
+export const getBarberById = async (req, res, next) => {
+    const barber = await Barber.findAll({
+        attributes: ['displayName'],
+        where: {id: req.params.id}
+    })
+    res.status(200).json(barber);
+}
+
 export const postBarber = async (req, res, next) => {
     if ( req.body.displayName != null ){
         const name = req.body.displayName;

@@ -45,6 +45,7 @@
                 path = path.concat('/' + document.getElementById(statePaths[state.value]['args'][arg]).value);
             }
         }
+        console.log(path);
         content.setAttribute('data-include', path);
         csi(); 
     }

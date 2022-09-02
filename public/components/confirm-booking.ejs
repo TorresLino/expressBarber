@@ -1,0 +1,19 @@
+<h1 class="cursive-text" style="font-size: 48px;">
+    Confirm selections:
+</h1>
+
+<div class="centered-container" style="margin-top: 64px;">
+    <div style="font-size: 30px; width: 80%;">
+        <% for(var row in data) { %>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                <span>
+                    <%- data[row].title %> 
+                </span>
+                <span class="right-column">
+                    <%- data[row].data %> 
+                </span>
+            </div>
+        <% } %> 
+    </div>
+    <button type="button" class="submit-button">Confirm</button>
+</div>

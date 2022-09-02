@@ -5,10 +5,12 @@ export const getServices = async (req, res, next) => {
     res.status(200).json(services);
 };
 
-export const getServiceSlots = async (req, res, next) => {
-    //console.log(req.params.code)
-    const services = await Service.findAll(
-        {where: {code: req.params.code}, attributes: ['timeSlots']});
+export const getServiceByCode = async (req, res, next) => {
+    const services = await Service.findAll({
+        attributes: ['name', 'price', 'timeSlots'],
+        where: {code: req.params.code}
+    });
+    
     res.status(200).json(services);
 }
 
