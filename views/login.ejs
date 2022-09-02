@@ -1,0 +1,20 @@
+<%- include('../public/components/header.ejs') %>
+
+<div class="centered-container" style="margin-top: 50px;">    
+    <h1 class="cursive-text" style="font-size: 48px;">
+        Login
+    </h1>
+    <form action="login" method="post" class="centered-container" style="width: 100%;">
+        <div style="width: 80%; margin-top: 50px;">
+            <p class="login-label" style="font-size: large; margin-bottom: 30px; color: var(--orange)">
+                <% if(locals.message) { %> <%- message %> <% } %></p>
+            <label class="login-label" for="email">Email:</label>
+            <input class="login-input" type="email" name="email" id="email">
+        </div>
+
+        <button type="submit" class="submit-button">Login</button>
+    </form>
+    <p style="font-size: large;">Not registered? <a href="./signup" style="color: var(--orange)">Sign up</a></p>
+</div>
+
+<%- include('../public/components/footer.ejs') %> 

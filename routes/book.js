@@ -2,10 +2,11 @@ import express from "express";
 const router = express.Router();
 import axios from 'axios';
 import { unavailableBarbers, unavailableDate } from "../public/javascript/barberAvailability.js";
+import checkSignIn from '../public/javascript/checkSignIn.js'
 
-const daysOfTheWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+const daysOfTheWeek = ['Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.']
 
-router.get('/', function(req, res, next){
+router.get('/', checkSignIn, function(req, res, next){
     req.ejs['pageName'] = "Book";
     
     res.render('book', req.ejs);

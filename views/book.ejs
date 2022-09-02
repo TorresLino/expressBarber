@@ -2,6 +2,13 @@
 
 <script src="/javascript/csi.js"></script>
 
+<div  style="color: var(--black); width: 400px; margin-bottom: 10px; margin-top: 10px;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16"
+    onclick="goBack()" style="background-color: var(--light-blue); border-radius: 5px; padding: 5px;">
+        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+    </svg>
+</div>
+
 <form id="bookForm" action="POST" style="width: 100%;" class="centered-container">
     <div id="data">
         <input type="hidden" id="state" value="">
@@ -15,7 +22,7 @@
 
 <script>
     const statePaths = {
-        "service":{path:"service", args: []},
+        "service":{path:"services", args: []},
         "date":{path:"date", args:[]},
         "time":{path:"time", args:['service', 'date']},
         "barber":{path:"barber", args:['service', 'date', 'time']},
@@ -27,7 +34,7 @@
     function selectItem(data){
         if(state.value === states[states.length - 1]){
             document.getElementById('bookForm').submit();
-            return true;
+            return;
         }
         document.getElementById(state.value).value = data;
         state.value = states[states.indexOf(state.value) + 1];
@@ -38,9 +45,25 @@
                 path = path.concat('/' + document.getElementById(statePaths[state.value]['args'][arg]).value);
             }
         }
-        console.log(path)
         content.setAttribute('data-include', path);
         csi(); 
+    }
+
+    function goBack(){
+        if(state.value === states[0])
+            history.back()
+        else{
+            state.value = states[states.indexOf(state.value) - 1];
+            var path = 'book/' + statePaths[state.value]['path'];
+            for(var arg in statePaths[state.value]['args'])
+            {
+                if(arg != null){
+                    path = path.concat('/' + document.getElementById(statePaths[state.value]['args'][arg]).value);
+                }
+            }
+            content.setAttribute('data-include', path);
+            csi(); 
+        }        
     }
 
     document.getElementById('state').value = states[0];
