@@ -8,13 +8,6 @@ function csi() {
 	}
 }
 
-function csiById(elementID) {
-	var element = document.getElementById(elementID);
-    if (element.hasAttribute && element.hasAttribute('data-include')) {
-        fragment(element, element.getAttribute('data-include'));
-    }
-}
-
 function fragment(el, url) {
     var localTest = /^(?:file):/,
         xmlhttp = new XMLHttpRequest(),
