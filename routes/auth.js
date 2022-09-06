@@ -53,15 +53,16 @@ router.post('/login', function(req, res, next){
     }
     else{
         axios.get('http://localhost:8000/api/user').then( apiRes => {
-            apiRes.data.filter((user) => {
-                if(user.email == req.body.email){
-                    req.session.user = user;
-                    res.redirect('/');
-                }
-            })
-            req.ejs['pageName'] = 'Login';
-            req.ejs['message'] = 'User does not exist.';
-            res.render('login', req.ejs);
+            var user = apiRes.data.filter((user) => {return user.email == req.body.email;})
+            if(user.length === 1){                
+                req.session.user = user[0];
+                res.redirect('/');
+            }
+            else{
+                req.ejs['pageName'] = 'Login';
+                req.ejs['message'] = 'User does not exist.';
+                res.render('login', req.ejs);
+            }
         })
     }
 });
