@@ -30,30 +30,16 @@
                 Cost:
             </th>
         </tr>
-        <tr>
-            <td>
-                Normal cut
-            </td>
-            <td class="right-column">
-                $35
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Machine cut
-            </td>
-            <td class="right-column">
-                $20
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Beard
-            </td>
-            <td class="right-column">
-                $25
-            </td>
-        </tr>
+        <% for(let s in services) { %> 
+            <tr>
+                <td>
+                    <%- services[s].name %> 
+                </td>
+                <td class="right-column">
+                    <%- services[s].price %> 
+                </td>
+            </tr>
+        <% } %> 
     </table>
 </div>
 
