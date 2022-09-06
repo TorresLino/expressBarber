@@ -1,4 +1,5 @@
 import Booking from "../models/booking.js";
+import { Op } from "sequelize";
 
 export const getAllBookings = async (req, res, next) => {
     const bookings = await Booking.findAll();
@@ -11,6 +12,18 @@ export const getBookingTimesForDate = async (req, res, next) => {
         where: {date: req.params.date}})
     res.status(200).json(bookings);
 };
+
+export const getFutureBookingsForUser = async (req, res, next) => {
+    const bookings = await Booking.findAll({        
+        attributes: ['id', 'date', 'barberID', 'serviceID', 'timeSlotID'],
+        where: {
+            'date': { [Op.gte]: req.params.date },
+            'userID': req.params.id
+        },
+        order: [['date']]
+    })
+    res.status(200).json(bookings);
+}
 
 export const postBooking = async (req, res, next) => {
     try{
@@ -40,7 +53,7 @@ export const postBooking = async (req, res, next) => {
 export const deleteBooking = async (req, res, next) => {
     const booking = await Booking.findByPk(req.params.id);
     if (booking != null) {
-        Booking.destroy( { where: { id: booking.id } } );
+        await Booking.destroy( { where: { id: booking.id } } );
         res.status(200).send("Booking deleted, id: " + booking.id);
     }
     else{

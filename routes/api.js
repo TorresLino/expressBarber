@@ -24,6 +24,7 @@ router.get('/booking', bookingController.getAllBookings);
 router.post('/booking', bookingController.postBooking);
 router.delete('/booking/:id', bookingController.deleteBooking);
 router.get('/booking-times/:date', bookingController.getBookingTimesForDate);
+router.get('/booking-by-user/:id/:date', bookingController.getFutureBookingsForUser);
 
 router.get('/timeSlot', timeSlotController.getTimeSlots);
 router.get('/timeslot/:id', timeSlotController.getTimeSlotById);
