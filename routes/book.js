@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 import axios from 'axios';
-import { unavailableBarbers, unavailableDate } from "../public/javascript/barberAvailability.js";
+import availability from "../controllers/availability.js";
 import checkSignIn from '../public/javascript/checkSignIn.js'
 
 const daysOfTheWeek = ['Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.']
@@ -69,7 +69,7 @@ router.get('/time/:code/:date', function(req, res, next){
                     name: allSlots[i].time,
                     description: '',
                     code: allSlots[i].id,
-                    disabled: unavailableDate(i, allSlots.map(x => x.id), bookedSlots, serviceSlotSize, barbers)
+                    disabled: availability.unavailableDate(i, allSlots.map(x => x.id), bookedSlots, serviceSlotSize, barbers)
                 })
             }
             req.ejs['subject'] = 'time'
@@ -90,7 +90,7 @@ router.get('/barber/:code/:date/:slot', function(req, res, next){
             const serviceSlotSize = responses[1].data[0].timeSlots;
             const allSlots = responses[2].data.map(x => x.id);
             const barbers = responses[3].data;
-            var busyBarbers = unavailableBarbers(allSlots.indexOf(parseInt(req.params.slot)), allSlots, bookedSlots, serviceSlotSize);
+            var busyBarbers = availability.unavailableBarbers(allSlots.indexOf(parseInt(req.params.slot)), allSlots, bookedSlots, serviceSlotSize);
 
             var displayBarbers = []
             for(var b in barbers){
@@ -124,7 +124,6 @@ router.get('/barber/:code/:date/:slot', function(req, res, next){
     ))
 });
 
-//continue from here
 router.get('/confirm/:code/:date/:time/:barber', function(req, res, next){
     axios.all([
         axios.get('http://localhost:8000/api/service-by-code/' + req.params.code),
@@ -149,5 +148,22 @@ router.get('/confirm/:code/:date/:time/:barber', function(req, res, next){
         }));
 })
 
+router.post('/', function(req, res, next){
+    //there could be security or database problems here, may add validation in the future
+    //also, someone could book in an already booked slot
+    axios.get('http://localhost:8000/api/service-by-code/'+req.body.service)
+        .then((apiRes => {
+            axios.post('http://localhost:8000/api/booking', {
+                barberID: req.body.barber,
+                userID: req.session.user.id,
+                serviceID: apiRes.data[0].id,
+                date: req.body.date,
+                timeSlotID: req.body.time
+            });
+        })
+    );
+
+    res.redirect('/list-bookings');
+})
 
 export default router;
