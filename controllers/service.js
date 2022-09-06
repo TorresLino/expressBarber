@@ -7,7 +7,7 @@ export const getServices = async (req, res, next) => {
 
 export const getServiceByCode = async (req, res, next) => {
     const services = await Service.findAll({
-        attributes: ['name', 'price', 'timeSlots'],
+        attributes: ['id', 'name', 'price', 'timeSlots'],
         where: {code: req.params.code}
     });
     
