@@ -9,13 +9,13 @@
     </svg>
 </div>
 
-<form id="bookForm" action="POST" style="width: 100%;" class="centered-container">
+<form id="bookForm" action="/book" method="post" style="width: 100%;" class="centered-container">
     <div id="data">
-        <input type="hidden" id="state" value="">
-        <input type="hidden" id="service" value="">
-        <input type="hidden" id="date" value="">
-        <input type="hidden" id="time" value="">
-        <input type="hidden" id="barber" value="">
+        <input type="hidden" id="state" name="state" value="">
+        <input type="hidden" id="service" name="service" value="">
+        <input type="hidden" id="date" name="date" value="">
+        <input type="hidden" id="time" name="time" value="">
+        <input type="hidden" id="barber" name="barber" value="">
     </div>
     <div id="content" data-include="book/services" style="width: 100%;"></div>
 </form>
