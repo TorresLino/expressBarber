@@ -29,7 +29,7 @@ router.post('/signup', function(req, res, next){
                     email: req.body.email
                 })
                 .then( (response) => {
-                    res.redirect('/');
+                    res.redirect('/authentication/login');
                 }).catch( (error) => {                                    
                     req.ejs['pageName'] = 'Signup';
                     req.ejs['message'] = 'Error creating user.';

@@ -62,7 +62,6 @@ router.post('/list-bookings', checkSignIn, function(req, res, next){
     axios.get('http://localhost:8000/api/booking-by-user/'+req.session.user.id+'/'+date)
     .then(async apiRes =>{
         for(var b of apiRes.data){
-            console.log(b)
             if(b.id == req.body.bookingID){
                 await axios.delete('http://localhost:8000/api/booking/' + b.id)
                 break;

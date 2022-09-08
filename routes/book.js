@@ -148,7 +148,7 @@ router.get('/confirm/:code/:date/:time/:barber', function(req, res, next){
         }));
 })
 
-router.post('/', function(req, res, next){
+router.post('/', checkSignIn, function(req, res, next){
     //there could be security or database problems here, may add validation in the future
     //also, someone could book in an already booked slot
     axios.get('http://localhost:8000/api/service-by-code/'+req.body.service)

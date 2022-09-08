@@ -36,7 +36,6 @@ export const postService = async (req, res, next) => {
 
 export const deleteService = async (req, res, next) => {
     const service = await Service.findByPk(req.params.id);
-    console.log(service);
     if (service != null) {
         Service.destroy( { where: { id: service.id } } );
         res.status(200).send("Service deleted, id: " + service.id);
